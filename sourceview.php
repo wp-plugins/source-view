@@ -5,6 +5,7 @@ Plugin URI: http://ounziw.com/2012/04/27/source-view-plugin/
 Description: This plugin outputs a source code of the function/class you specified.
 Author: Fumito MIZUNO 
 Version: 1.0
+License: GPL ver.2 or later
 Author URI: http://php-web.net/
  */
 define( 'SV_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
@@ -60,7 +61,7 @@ function sv_settings_api_init() {
 add_action('admin_init', 'sv_settings_api_init');
 
 function sv_setting_section_callback_function() {
-	echo '<p>'. __('Enter a classname or function name.','source-view') . '</p>';
+	echo '<p>'. esc_html(__('Enter a classname or function name.','source-view')) . '</p>';
 }
 
 function sv_setting_callback_function() {
@@ -85,16 +86,19 @@ function sv_plugin_options() {
 		try {
 			$reflect = sv_funcname_check($func_or_class_name);
 			$obj = new Source_View($reflect);
+			$filename = esc_html($obj->getFileName());
+			$startline = intval($obj->getStartLine());
+			$endline = intval($obj->getEndLine());
 			// HTML before source code
 			$before_code_format = '<p>File: %s  Line: %d - %d</p>';
 			$before_code_format = apply_filters('sv_before_code_format',$before_code_format);
-			printf($before_code_format, $obj->getFileName(), $obj->getStartLine(), $obj->getEndLine());
+			printf($before_code_format, $filename, $startline, $endline);
 			// source code
-			print '<pre class=\'brush: php; first-line: '. $obj->getStartLine() .';\'>';
-			print $obj->createFileData()->outData();
-			print '</pre>';
+			echo '<pre class=\'brush: php; first-line: '. $startline .';\'>';
+			echo $obj->createFileData()->outData(TRUE);
+			echo '</pre>';
 		} catch (Exception $e) {
-			echo $e->getMessage();
+			echo esc_html($e->getMessage());
 		}
 	}
 ?></div>

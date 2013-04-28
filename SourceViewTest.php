@@ -12,7 +12,9 @@ if (!function_exists(esc_html)){
 		return htmlspecialchars($data,ENT_QUOTES,'UTF-8');
 	}
 }
+if (!class_exists('Source_View')) {
 require_once('sourceviewclass.php');
+}
 class SourceViewtest extends PHPUnit_Framework_TestCase {
 
 function testclass(){	
