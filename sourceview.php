@@ -94,7 +94,7 @@ function sv_plugin_options() {
 			$before_code_format = apply_filters('sv_before_code_format',$before_code_format);
 			printf($before_code_format, $filename, $startline, $endline);
 			// source code
-			echo '<pre class=\'brush: php; first-line: '. $startline .';\'>';
+			echo '<pre class="brush: php; first-line: '. $startline .';">';
 			echo $obj->createFileData()->outData(TRUE);
 			echo '</pre>';
 		} catch (Exception $e) {
