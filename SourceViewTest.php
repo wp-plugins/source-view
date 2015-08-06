@@ -7,7 +7,7 @@ function dummyfunc() {
     return false;
 }
 // esc_html is a WordPress function
-if (!function_exists(esc_html)){
+if (!function_exists('esc_html')){
     function esc_html($data) {
         return htmlspecialchars($data,ENT_QUOTES,'UTF-8');
     }
