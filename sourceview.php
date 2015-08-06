@@ -4,7 +4,7 @@ Plugin Name: Source View
 Plugin URI: http://ounziw.com/2012/04/27/source-view-plugin/
 Description: This plugin outputs a source code of the function/class you specified.
 Author: Fumito MIZUNO 
-Version: 1.0
+Version: 1.1
 License: GPL ver.2 or later
 Author URI: http://php-web.net/
  */
@@ -65,7 +65,9 @@ function sv_setting_section_callback_function() {
 }
 
 function sv_setting_callback_function() {
-	echo '<input name="sv_function_name" id="sv_function_name" type="text" value="'. esc_attr(get_option('sv_function_name')) .'" class="code" />';
+    echo '<input name="sv_function_name" id="sv_function_name" type="text" value="';
+    form_option('sv_function_name');
+    echo '" class="code" />';
 }
 
 function sv_plugin_options() {
